@@ -1,0 +1,56 @@
+/* TextGlitch – glitch text effect for DJRCX */
+.root {
+  --TextGlitch-blendSize: 0.08em;
+  --TextGlitch-blendColorA: rgba(136, 192, 208, 0.9);   /* nord-8 */
+  --TextGlitch-blendColorB: rgba(129, 161, 193, 0.9);  /* nord-9 */
+
+  position: relative;
+  line-height: 1em;
+  letter-spacing: -0.1ch;
+  font-size: 1.5rem;  /* nav size; override with className if needed */
+  font-weight: 500;
+  color: var(--nord0, #2e3440);
+}
+
+.root :global(.TextGlitch-clip) {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+}
+
+.root :global(.TextGlitch-clip) + :global(.TextGlitch-clip) {
+  position: absolute;
+  top: 0;
+}
+
+.root:not(.blended) :global(.TextGlitch-clip) + :global(.TextGlitch-clip) {
+  display: none;
+}
+
+.root :global(.TextGlitch-word) {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.blend {
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.blendA {
+  color: var(--TextGlitch-blendColorA);
+  margin: calc(var(--TextGlitch-blendSize) * -1) 0 0 var(--TextGlitch-blendSize);
+  mix-blend-mode: darken;
+}
+
+.blendB {
+  color: var(--TextGlitch-blendColorB);
+  margin: var(--TextGlitch-blendSize) 0 0 calc(var(--TextGlitch-blendSize) * -1);
+  mix-blend-mode: color-burn;
+}
+
+.root.blended .blend {
+  opacity: 0.4;
+}

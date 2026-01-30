@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Nord light theme base */
+:root {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+}
+
+body {
+  @apply bg-nord-6 text-nord-0 font-body antialiased;
+}
+
+/* Headings use Jersey 10 with letter spacing */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-heading;
+}
+
+/* Letter spacing for Jersey 10 font across the site */
+.font-heading {
+  letter-spacing: 0.08em;
+}
+
+/* Subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-nord-5;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-nord-3 rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-nord-9;
+}
+
+/* Smooth anchor scroll offset for sticky nav */
+html {
+  scroll-padding-top: 5rem;
+  scroll-behavior: smooth;
+}
+
+/* Background music waveform bars */
+@keyframes music-wave {
+  from {
+    transform: scaleY(0.3);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.music-wave-bar {
+  transform-origin: bottom;
+}
+
+.music-wave-bar.playing {
+  animation: music-wave 0.6s ease-in-out infinite alternate;
+}
