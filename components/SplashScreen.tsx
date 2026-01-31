@@ -26,6 +26,7 @@ export default function SplashScreen({
   const [text, setText] = useState("");
   const [showLogo, setShowLogo] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<"yes" | "no">("yes");
 
   useEffect(() => {
     const logoTimeout = setTimeout(() => {
@@ -148,14 +149,24 @@ export default function SplashScreen({
                 <button
                   type="button"
                   onClick={handleYes}
-                  className={`${doto.className} rounded-lg bg-[#5e81ac] px-6 py-3 text-[#eceff4] transition-colors hover:bg-[#81a1c1]`}
+                  onMouseEnter={() => setSelectedOption("yes")}
+                  className={`${doto.className} rounded-lg px-6 py-3 transition-colors ${
+                    selectedOption === "yes"
+                      ? "bg-[#5e81ac] text-[#eceff4] hover:bg-[#81a1c1]"
+                      : "border border-[#4c566a] bg-transparent text-[#d8dee9] hover:bg-[#3b4252]"
+                  }`}
                 >
                   Yes
                 </button>
                 <button
                   type="button"
                   onClick={handleNo}
-                  className={`${doto.className} rounded-lg border border-[#4c566a] bg-transparent px-6 py-3 text-[#d8dee9] transition-colors hover:bg-[#3b4252]`}
+                  onMouseEnter={() => setSelectedOption("no")}
+                  className={`${doto.className} rounded-lg px-6 py-3 transition-colors ${
+                    selectedOption === "no"
+                      ? "bg-[#5e81ac] text-[#eceff4] hover:bg-[#81a1c1]"
+                      : "border border-[#4c566a] bg-transparent text-[#d8dee9] hover:bg-[#3b4252]"
+                  }`}
                 >
                   No
                 </button>
