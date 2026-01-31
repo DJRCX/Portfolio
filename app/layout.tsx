@@ -36,6 +36,10 @@ export const metadata: Metadata = {
     description:
       "Frontend developer specializing in responsive web design and development.",
   },
+  icons: {
+    icon: "/favicon/web-app-manifest-192x192.png",
+    apple: "/favicon/web-app-manifest-192x192.png",
+  },
 };
 
 export default function RootLayout({
