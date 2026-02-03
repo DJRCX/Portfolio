@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import { Jersey_10, Comfortaa } from "next/font/google";
+import "@fontsource/jersey-10";
+import "@fontsource/comfortaa";
 import "./globals.css";
-import SplashScreen from "../components/SplashScreen";
 
-const jersey10 = Jersey_10({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-jersey-10",
-  display: "swap",
+const SplashContextProvider = dynamic(
+  () =>
+    import("../components/SplashContextProvider").then((m) => ({
+      default: m.SplashContextProvider,
+    })),
+  { ssr: true }
+);
+const LayoutWrapper = dynamic(() => import("../components/LayoutWrapper"), {
+  ssr: true,
 });
-
-const comfortaa = Comfortaa({
-  subsets: ["latin"],
-  variable: "--font-comfortaa",
-  display: "swap",
+const BackgroundMusic = dynamic(() => import("../components/BackgroundMusic"), {
+  ssr: true,
 });
 
 export const metadata: Metadata = {
@@ -48,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${jersey10.variable} ${comfortaa.variable}`}>
+    <html lang="en">
       <body className="min-h-screen relative">
         <div className="fixed inset-0 z-[-1] opacity-10">
           <Image
@@ -56,11 +58,15 @@ export default function RootLayout({
             alt="Background"
             fill
             className="object-cover object-right"
-            priority
-            quality={100}
+            quality={75}
+            loading="lazy"
+            fetchPriority="low"
           />
         </div>
-        <SplashScreen>{children}</SplashScreen>
+        <SplashContextProvider>
+          <LayoutWrapper>{children}</LayoutWrapper>
+          <BackgroundMusic />
+        </SplashContextProvider>
       </body>
     </html>
   );

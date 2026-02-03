@@ -1,27 +1,23 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Doto } from "next/font/google";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { SplashContext } from "./SplashContext";
-import BackgroundMusic from "./BackgroundMusic";
-
-const doto = Doto({ subsets: ["latin"], weight: ["400"] });
+import { useSearchParams } from "next/navigation";
+import { useSplash } from "./SplashContext";
 
 export default function SplashScreen({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [showSplash, setShowSplash] = useState(true);
+  const searchParams = useSearchParams();
+  const shouldSkip = searchParams?.get("skip") === "true";
+  const { userWantsMusic, setUserWantsMusic } = useSplash();
+
+  const [showSplash, setShowSplash] = useState(!shouldSkip);
   const [isFading, setIsFading] = useState(false);
-  const [userWantsMusic, setUserWantsMusic] = useState<boolean | null>(null);
   const [promptRevealed, setPromptRevealed] = useState(false);
   const [promptHiding, setPromptHiding] = useState(false);
-  const musicPlayRef = useRef<(() => void) | null>(null);
-  const registerMusicPlay = useCallback((play: () => void) => {
-    musicPlayRef.current = play;
-  }, []);
 
   const [text, setText] = useState("");
   const [showLogo, setShowLogo] = useState(false);
@@ -75,10 +71,7 @@ export default function SplashScreen({
 
   const handleYes = () => {
     setPromptHiding(true);
-    setTimeout(() => {
-      setUserWantsMusic(true);
-      musicPlayRef.current?.();
-    }, PROMPT_TRANSITION_MS);
+    setTimeout(() => setUserWantsMusic(true), PROMPT_TRANSITION_MS);
   };
 
   const handleNo = () => {
@@ -87,16 +80,8 @@ export default function SplashScreen({
   };
 
   return (
-    <SplashContext.Provider
-      value={{
-        isSplashComplete: isFading || !showSplash,
-        userWantsMusic,
-        setUserWantsMusic,
-        registerMusicPlay,
-      }}
-    >
+    <>
       {children}
-      <BackgroundMusic />
 
       {showSplash && (
         <div
@@ -120,9 +105,7 @@ export default function SplashScreen({
                 />
               </div>
             </div>
-            <div
-              className={`${doto.className} text-[#eceff4] text-4xl tracking-widest h-12 flex items-center`}
-            >
+            <div className="font-heading text-[#eceff4] text-4xl tracking-widest h-12 flex items-center">
               {text}
             </div>
           </div>
@@ -140,9 +123,7 @@ export default function SplashScreen({
                 pointerEvents: promptHiding ? "none" : "auto",
               }}
             >
-              <p
-                className={`${doto.className} text-[#d8dee9] text-lg tracking-wide`}
-              >
+              <p className="font-heading text-[#d8dee9] text-lg tracking-wide">
                 Do you want background music?
               </p>
               <div className="flex gap-4">
@@ -150,7 +131,7 @@ export default function SplashScreen({
                   type="button"
                   onClick={handleYes}
                   onMouseEnter={() => setSelectedOption("yes")}
-                  className={`${doto.className} rounded-lg px-6 py-3 transition-colors ${
+                  className={`font-heading rounded-lg px-6 py-3 transition-colors ${
                     selectedOption === "yes"
                       ? "bg-[#5e81ac] text-[#eceff4] hover:bg-[#81a1c1]"
                       : "border border-[#4c566a] bg-transparent text-[#d8dee9] hover:bg-[#3b4252]"
@@ -162,7 +143,7 @@ export default function SplashScreen({
                   type="button"
                   onClick={handleNo}
                   onMouseEnter={() => setSelectedOption("no")}
-                  className={`${doto.className} rounded-lg px-6 py-3 transition-colors ${
+                  className={`font-heading rounded-lg px-6 py-3 transition-colors ${
                     selectedOption === "no"
                       ? "bg-[#5e81ac] text-[#eceff4] hover:bg-[#81a1c1]"
                       : "border border-[#4c566a] bg-transparent text-[#d8dee9] hover:bg-[#3b4252]"
@@ -175,6 +156,6 @@ export default function SplashScreen({
           )}
         </div>
       )}
-    </SplashContext.Provider>
+    </>
   );
 }

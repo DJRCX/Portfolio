@@ -12,7 +12,7 @@ const WAVE_HEIGHTS = [0.4, 0.7, 1, 0.6, 0.5, 0.8, 0.4];
 
 export default function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const { registerMusicPlay } = useSplash();
+  const { registerMusicPlay, userWantsMusic, setUserWantsMusic } = useSplash();
   const [isPlaying, setIsPlaying] = useState(false);
   const [showTitle, setShowTitle] = useState(true);
   const [titleRevealed, setTitleRevealed] = useState(false);
@@ -35,6 +35,17 @@ export default function BackgroundMusic() {
     });
   }, [registerMusicPlay]);
 
+  // Pause when user disables music (e.g. from CLI)
+  useEffect(() => {
+    if (userWantsMusic === false) {
+      const audio = audioRef.current;
+      if (audio) {
+        audio.pause();
+        setIsPlaying(false);
+      }
+    }
+  }, [userWantsMusic]);
+
   useEffect(() => {
     const hideTimer = setTimeout(() => {
       setShowTitle(false);
@@ -48,10 +59,14 @@ export default function BackgroundMusic() {
     if (isPlaying) {
       audio.pause();
       setIsPlaying(false);
+      setUserWantsMusic(false);
     } else {
       audio
         .play()
-        .then(() => setIsPlaying(true))
+        .then(() => {
+          setIsPlaying(true);
+          setUserWantsMusic(true);
+        })
         .catch(() => {});
     }
   };

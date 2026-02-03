@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextGlitch from "./TextGlitch";
 
 const navLinks = [
@@ -14,24 +14,50 @@ const navLinks = [
 
 export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showHint, setShowHint] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowHint(true);
+    }, 20000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
       <nav className="fixed top-0 inset-x-0 z-50 border-b border-nord-4 bg-nord-5/95 backdrop-blur-sm">
         <div className="container mx-auto flex items-center justify-between px-4 py-3">
-          <Link
-            href="#"
-            className="font-heading text-2xl font-bold text-nord-0 transition-colors hover:text-nord-9 flex items-center gap-3"
-          >
-            <Image
-              src="/images/logo.png"
-              alt="DJRCX Logo"
-              width={25}
-              height={25}
-              className="rounded-full"
-            />
-            <TextGlitch delayMs={10000} className="text-nord-0 font-heading" />
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/cli"
+              className="font-heading text-2xl font-bold text-nord-0 transition-colors hover:text-nord-9 flex items-center gap-3"
+            >
+              <Image
+                src="/images/logo.png"
+                alt="DJRCX Logo"
+                width={25}
+                height={25}
+                className="rounded-full"
+              />
+              <TextGlitch
+                delayMs={10000}
+                className="text-nord-0 font-heading"
+              />
+            </Link>
+            <div 
+              className={`transition-opacity duration-1000 ${showHint ? 'opacity-100' : 'opacity-0'}`}
+              aria-hidden={!showHint}
+            >
+              {showHint && (
+                <TextGlitch 
+                  text="<-- click here" 
+                  textAlt={["<-- (lick here", "<-- click h3re", "<-- c|ick here", "<-- click h3r3"]}
+                  delayMs={0} 
+                  className="text-nord-3 text-lg font-heading"
+                />
+              )}
+            </div>
+          </div>
           <div className="hidden md:flex md:gap-6">
             {navLinks.map((link) => (
               <Link
