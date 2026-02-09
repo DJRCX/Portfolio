@@ -5,17 +5,7 @@ import "@fontsource/jersey-10";
 import "@fontsource/comfortaa";
 import "./globals.css";
 
-const SplashContextProvider = dynamic(
-  () =>
-    import("../components/SplashContextProvider").then((m) => ({
-      default: m.SplashContextProvider,
-    })),
-  { ssr: true }
-);
 const LayoutWrapper = dynamic(() => import("../components/LayoutWrapper"), {
-  ssr: true,
-});
-const BackgroundMusic = dynamic(() => import("../components/BackgroundMusic"), {
   ssr: true,
 });
 
@@ -63,10 +53,7 @@ export default function RootLayout({
             fetchPriority="low"
           />
         </div>
-        <SplashContextProvider>
-          <LayoutWrapper>{children}</LayoutWrapper>
-          <BackgroundMusic />
-        </SplashContextProvider>
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

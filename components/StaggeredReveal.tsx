@@ -7,7 +7,7 @@ interface StaggeredRevealProps {
   index: number;
 }
 
-export default function StaggeredReveal({ children, index }: StaggeredRevealProps) {
+export default function StaggeredReveal({ children }: StaggeredRevealProps) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 

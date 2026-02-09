@@ -2,6 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
+import BackgroundMusic from "./BackgroundMusic";
+import { SplashProvider } from "./SplashContext";
 
 export default function LayoutWrapper({
   children,
@@ -24,17 +26,20 @@ export default function LayoutWrapper({
     }
   }, [pathname]);
 
-  if (pathname !== "/") {
-    return <>{children}</>;
-  }
-
-  if (!SplashScreen) {
-    return <div className="min-h-screen bg-[#2e3440]" />;
-  }
-
   return (
     <Suspense fallback={<div className="min-h-screen bg-[#2e3440]" />}>
-      <SplashScreen>{children}</SplashScreen>
+      <SplashProvider>
+        {pathname === "/" ? (
+          SplashScreen ? (
+            <SplashScreen>{children}</SplashScreen>
+          ) : (
+            <div className="min-h-screen bg-[#2e3440]" />
+          )
+        ) : (
+          children
+        )}
+        <BackgroundMusic />
+      </SplashProvider>
     </Suspense>
   );
 }

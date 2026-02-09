@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useSplash } from "@/components/SplashContext";
-import { THEMES, THEME_PALETTES, type ThemeId } from "./themes";
+import { THEME_PALETTES, type ThemeId } from "./themes";
 
 const SKILLS = [
   {
@@ -135,7 +135,6 @@ export default function CliPage() {
   const inputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const { userWantsMusic, setUserWantsMusic } = useSplash();
 
   const theme = THEME_PALETTES[currentTheme];
 
@@ -452,7 +451,7 @@ export default function CliPage() {
           addToHistory(cmd, <MusicStatus />);
           break;
 
-        case "theme":
+        case "theme": {
           const newTheme =
             currentTheme === "nord-dark" ? "nord-light" : "nord-dark";
           setCurrentTheme(newTheme);
@@ -468,6 +467,7 @@ export default function CliPage() {
             </div>,
           );
           break;
+        }
 
         case "contact":
           addToHistory(
@@ -592,21 +592,45 @@ export default function CliPage() {
           break;
 
         case "home":
-          setIsExiting(true);
-          setTimeout(() => {
-            router.push("/?skip=true");
-          }, 700);
+          addToHistory(
+            cmd,
+            <div className="space-y-4 max-w-2xl">
+              <div>
+                <p className="mb-2">
+                  Are you sure you want to return to the GUI?
+                </p>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => router.push("/")}
+                    className="text-[var(--cli-accent)] hover:underline"
+                  >
+                    [ Yes ]
+                  </button>
+                  <button
+                    onClick={() => addToHistory("home", <div>Cancelled.</div>)}
+                    className="text-[var(--cli-error)] hover:underline"
+                  >
+                    [ No ]
+                  </button>
+                </div>
+              </div>
+            </div>,
+          );
           break;
 
         case "reboot":
-          window.location.href = "/";
+          setIsExiting(true);
+          setTimeout(() => {
+            window.location.href = "/?skip=false";
+          }, 800);
           break;
 
         default:
           addToHistory(
             cmd,
             <span className="text-[var(--cli-error)]">
-              Command not found: {cmd}. Type 'help' for available commands.
+              Command not found: {cmd}. Type &apos;help&apos; for available
+              commands.
             </span>,
           );
       }
@@ -645,7 +669,7 @@ export default function CliPage() {
           ) : (
             <>
               <div className="mb-4">
-                <p>Welcome to Mahtab's CLI.</p>
+                <p>Welcome to Mahtab&apos;s CLI.</p>
               </div>
 
               <pre className="text-[0.5rem] sm:text-[0.6rem] md:text-xs leading-none text-[var(--cli-prompt-host)] font-bold mb-8 select-none whitespace-pre overflow-x-auto">

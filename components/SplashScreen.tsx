@@ -12,7 +12,7 @@ export default function SplashScreen({
 }) {
   const searchParams = useSearchParams();
   const shouldSkip = searchParams?.get("skip") === "true";
-  const { userWantsMusic, setUserWantsMusic } = useSplash();
+  const { userWantsMusic, setUserWantsMusic, startMusic } = useSplash();
 
   const [showSplash, setShowSplash] = useState(!shouldSkip);
   const [isFading, setIsFading] = useState(false);
@@ -23,6 +23,12 @@ export default function SplashScreen({
   const [showLogo, setShowLogo] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
   const [selectedOption, setSelectedOption] = useState<"yes" | "no">("yes");
+
+  useEffect(() => {
+    if (!shouldSkip) {
+      setUserWantsMusic(null);
+    }
+  }, [shouldSkip, setUserWantsMusic]);
 
   useEffect(() => {
     const logoTimeout = setTimeout(() => {
@@ -71,6 +77,7 @@ export default function SplashScreen({
 
   const handleYes = () => {
     setPromptHiding(true);
+    startMusic();
     setTimeout(() => setUserWantsMusic(true), PROMPT_TRANSITION_MS);
   };
 
