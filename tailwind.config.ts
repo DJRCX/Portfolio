@@ -33,8 +33,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        heading: ["var(--font-jersey-10)", "sans-serif"],
-        body: ["var(--font-comfortaa)", "sans-serif"],
+        heading: ["var(--font-heading)", "sans-serif"],
+        body: ["var(--font-body)", "sans-serif"],
       },
       transitionDuration: {
         DEFAULT: "200ms",

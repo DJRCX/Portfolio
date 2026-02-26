@@ -33,7 +33,7 @@ export default function Nav() {
               className="font-heading text-2xl font-bold text-nord-0 transition-colors hover:text-nord-9 flex items-center gap-3"
             >
               <Image
-                src="/images/logo.png"
+                src="/images/logo.webp"
                 alt="DJRCX Logo"
                 width={25}
                 height={25}
@@ -72,7 +72,7 @@ export default function Nav() {
           </div>
           <button
             type="button"
-            className="md:hidden text-nord-0"
+            className="md:hidden flex h-11 w-11 items-center justify-center rounded-md text-nord-0"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >

@@ -8,14 +8,14 @@ const timeline = [
   },
   {
     title: "Company Website Development",
-    org: "UNLEFT Website",
+    org: "UNLEFT.llc",
     desc: "Developed and maintained the official company website with a focus on design consistency and responsiveness.",
     detail:
       "Challenges: Maintaining design hierarchy across different webpages and ensuring optimal experience across all screen sizes.",
   },
   {
     title: "Learning Platform Development",
-    org: "Eduplex DIU",
+    org: "Eduplex",
     desc: "Contributed to a comprehensive learning platform for Daffodil International University students.",
     detail:
       "Focus: Design hierarchy, responsiveness, and user experience for educational content.",

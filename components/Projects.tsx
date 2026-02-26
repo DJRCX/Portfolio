@@ -6,14 +6,14 @@ const projects = [
     desc: "The official website for UNLEFT company, designed and developed with a focus on minimalism, responsiveness, and clear information hierarchy.",
     tags: ["HTML", "CSS", "JavaScript", "Responsive Design"],
     url: "https://starrynight-web.github.io/unleft/",
-    image: "/images/unleft.jpg",
+    image: "/images/unleft.webp",
   },
   {
     title: "Eduplex DIU Learning Platform",
     desc: "A comprehensive learning platform for students of Daffodil International University, featuring organized educational content with a focus on usability.",
     tags: ["React", "TypeScript", "Tailwind CSS", "Responsive Design"],
     url: "https://eduplex-diu.unleft.space/",
-    image: "/images/eduplex.png",
+    image: "/images/eduplex.webp",
   },
 ];
 

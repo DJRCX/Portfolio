@@ -52,7 +52,7 @@ export default function Hero() {
             Frontend Developer at UNLEFT
           </h2>
           <p className="font-body mt-6 max-w-2xl text-lg text-nord-1">
-            I&apos;m a frontend engineer from Bangladesh specializing in react
+            I&apos;m a frontend engineer from Bangladesh specializing in Next.js
             and typescript with experience of 1+ years. I&apos;m currently
             studying BSc in Software Engineering from Daffodil International
             University.
@@ -64,7 +64,7 @@ export default function Hero() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-nord-0 transition-all hover:text-nord-9 hover:-translate-y-1 hover:scale-110"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full text-nord-0 transition-all hover:text-nord-9 hover:-translate-y-1 hover:scale-110"
                 aria-label={link.label}
               >
                 <svg
@@ -82,7 +82,7 @@ export default function Hero() {
           <div className="relative h-48 w-48 overflow-hidden rounded-full border-4 border-nord-4 md:h-64 md:w-64">
             {!profileImgError ? (
               <Image
-                src="/images/mahtab.jpg"
+                src="/images/mahtab.webp"
                 alt="Mahtabul Al Nahian"
                 fill
                 className="object-cover"

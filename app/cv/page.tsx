@@ -2,9 +2,33 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "CV | Mahtabul Al Nahian",
+  title: "Portfolio Profile and Experience",
   description:
-    "Curriculum Vitae - Mahtabul Al Nahian, COO & Frontend Developer at UNLEFT",
+    "Portfolio profile page of Mahtabul Al Nahian highlighting experience, skills, education, and selected frontend projects.",
+  keywords: [
+    "Frontend Developer",
+    "React Developer",
+    "Minimalist Portfolio",
+    "COO UNLEFT",
+    "Portfolio Experience",
+  ],
+  alternates: {
+    canonical: "/cv",
+  },
+  openGraph: {
+    title: "Portfolio Profile and Experience | Mahtabul Al Nahian Portfolio",
+    description:
+      "Detailed portfolio profile with career summary, skills, and selected projects.",
+    url: "https://portfolio.unleft.space/cv",
+    type: "profile",
+    images: ["/images/mahtab.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Portfolio Profile and Experience | Mahtabul Al Nahian Portfolio",
+    description: "Portfolio profile with skills, experience, and project highlights.",
+    images: ["/images/mahtab.webp"],
+  },
 };
 
 export default function CVPage() {

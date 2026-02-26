@@ -32,7 +32,10 @@ export const useSplash = () => useContext(SplashContext);
 
 export function SplashProvider({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
-  const shouldSkip = searchParams?.get("skip") === "true";
+  const shouldSkip =
+    searchParams?.get("skip") === "true" ||
+    (typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get("skip") === "true");
 
   // If skipping, default music preference to false
   const [userWantsMusic, setUserWantsMusic] = useState<boolean | null>(

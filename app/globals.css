@@ -4,8 +4,8 @@
 
 /* Nord light theme base */
 :root {
-  --font-jersey-10: "Jersey 10", sans-serif;
-  --font-comfortaa: "Comfortaa", sans-serif;
+  --font-heading: "Jersey 10", sans-serif;
+  --font-body: "Comfortaa", sans-serif;
   --nord0: #2e3440;
   --nord1: #3b4252;
   --nord2: #434c5e;

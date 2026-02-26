@@ -11,7 +11,10 @@ export default function SplashScreen({
   children: React.ReactNode;
 }) {
   const searchParams = useSearchParams();
-  const shouldSkip = searchParams?.get("skip") === "true";
+  const shouldSkip =
+    searchParams?.get("skip") === "true" ||
+    (typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get("skip") === "true");
   const { userWantsMusic, setUserWantsMusic, startMusic } = useSplash();
 
   const [showSplash, setShowSplash] = useState(!shouldSkip);
@@ -31,6 +34,14 @@ export default function SplashScreen({
   }, [shouldSkip, setUserWantsMusic]);
 
   useEffect(() => {
+    if (shouldSkip) {
+      setShowSplash(false);
+      setIsFading(false);
+      setUserWantsMusic(false);
+      return;
+    }
+
+    setShowSplash(true);
     const logoTimeout = setTimeout(() => {
       setShowLogo(true);
     }, 500);
@@ -54,7 +65,7 @@ export default function SplashScreen({
       clearTimeout(logoTimeout);
       clearTimeout(typeStartTimeout);
     };
-  }, []);
+  }, [shouldSkip, setUserWantsMusic]);
 
   // Only transition away when user has chosen Yes or No for music
   useEffect(() => {
@@ -104,7 +115,7 @@ export default function SplashScreen({
             >
               <div className="relative w-12 h-12 mr-8">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/logo.webp"
                   alt="Logo"
                   fill
                   className="object-contain"

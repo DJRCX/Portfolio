@@ -215,7 +215,7 @@ export default function CliPage() {
               </div>
               <div>
                 <span className="text-[var(--cli-prompt-host)]">home</span> -
-                Return to GUI
+                Return to home
               </div>
               <div>
                 <span className="text-[var(--cli-prompt-host)]">reboot</span> -
@@ -495,7 +495,7 @@ export default function CliPage() {
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8 mt-4">
               <div className="relative w-48 h-48 shrink-0">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/logo.webp"
                   alt="Logo"
                   fill
                   className="object-contain"
@@ -592,36 +592,16 @@ export default function CliPage() {
           break;
 
         case "home":
-          addToHistory(
-            cmd,
-            <div className="space-y-4 max-w-2xl">
-              <div>
-                <p className="mb-2">
-                  Are you sure you want to return to the GUI?
-                </p>
-                <div className="flex gap-4">
-                  <button
-                    onClick={() => router.push("/")}
-                    className="text-[var(--cli-accent)] hover:underline"
-                  >
-                    [ Yes ]
-                  </button>
-                  <button
-                    onClick={() => addToHistory("home", <div>Cancelled.</div>)}
-                    className="text-[var(--cli-error)] hover:underline"
-                  >
-                    [ No ]
-                  </button>
-                </div>
-              </div>
-            </div>,
-          );
+          setIsExiting(true);
+          setTimeout(() => {
+            window.location.href = "/?skip=true";
+          }, 800);
           break;
 
         case "reboot":
           setIsExiting(true);
           setTimeout(() => {
-            window.location.href = "/?skip=false";
+            window.location.href = "/?skip=true";
           }, 800);
           break;
 

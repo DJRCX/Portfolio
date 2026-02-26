@@ -97,7 +97,7 @@ export default function BackgroundMusic() {
         ref={audioRef}
         src={AUDIO_SRC}
         loop
-        preload="auto"
+        preload="metadata"
         aria-label="Background music"
       />
       {isSplashComplete && (
