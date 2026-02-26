@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "CLI Portfolio Experience",
@@ -23,10 +24,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CliLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return children;
+export default function CliLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#2e3440]" />}>
+      {children}
+    </Suspense>
+  );
 }

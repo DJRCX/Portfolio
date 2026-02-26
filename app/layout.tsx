@@ -5,6 +5,8 @@ import { Comfortaa, Jersey_10 } from "next/font/google";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import "./globals.css";
 
+import { Suspense } from "react";
+
 const LayoutWrapper = dynamic(() => import("../components/LayoutWrapper"), {
   ssr: true,
 });
@@ -25,7 +27,8 @@ const bodyFont = Comfortaa({
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio.unleft.space"),
   title: {
-    default: "Mahtabul Al Nahian Portfolio | Frontend Developer & COO at UNLEFT",
+    default:
+      "Mahtabul Al Nahian Portfolio | Frontend Developer & COO at UNLEFT",
     template: "%s | Mahtabul Al Nahian Portfolio",
   },
   description:
@@ -103,7 +106,9 @@ export default function RootLayout({
           />
         </div>
         <ServiceWorkerRegistration />
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <Suspense fallback={<div className="min-h-screen bg-[#2e3440]" />}>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </Suspense>
       </body>
     </html>
   );

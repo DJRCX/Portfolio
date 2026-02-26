@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useSplash } from "@/components/SplashContext";
@@ -134,7 +133,6 @@ export default function CliPage() {
   const [currentTheme, setCurrentTheme] = useState<ThemeId>("nord-dark");
   const inputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   const theme = THEME_PALETTES[currentTheme];
 
